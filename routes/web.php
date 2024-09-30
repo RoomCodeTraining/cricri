@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Mise à jour de la route /panel
+Route::get('/panel', function () {
+    return redirect('/admin'); // Remplace '/admin' par l'URL correcte de ton tableau de bord Filament
+})->name('panel');
