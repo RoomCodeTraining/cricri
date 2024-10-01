@@ -14,23 +14,22 @@ class Church extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-         'name', 
-         'temple', 
-         'pastor_id', 
-         'contacts', 
-         'address', 
-         'email', 
-         'description', 
-         'latitude', 
-         'longitude', 
-         'website', 
+         'name',
+         'temple',
+         'pastor_id',
+         'contacts',
+         'address',
+         'email',
+         'description',
+         'latitude',
+         'longitude',
+         'website',
          'logo',
          'picture',
          'community_id',
          'sigle',
          'city_id',
          'commune_id',
-         'neighborhood_id'
     ];
 
     public function pastor():BelongsTo
@@ -49,9 +48,5 @@ class Church extends Model implements HasMedia
      public function commune(): BelongsTo{
 
         return $this->belongsTo(Commune::class);
-    }
-     public function neighborhood(): BelongsTo{
-
-        return $this->belongsTo(Neighborhood::class);
     }
 }

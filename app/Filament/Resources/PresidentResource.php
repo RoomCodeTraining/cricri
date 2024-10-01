@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\PresidentResource\Pages;
 use App\Filament\Resources\PresidentResource\RelationManagers;
 use App\Models\Commune;
-use App\Models\Neighborhood;
 use App\Models\President;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -35,7 +34,7 @@ class PresidentResource extends Resource
     {
         return $form
             ->schema([
-            
+
                 Section::make('Mandat')
                 ->columns(3)
                 ->schema([
@@ -46,16 +45,16 @@ class PresidentResource extends Resource
                         'active' => 'Actif',
                         'inactive' => 'Inactif',
                     ]),
-                
+
                 DatePicker::make('leadership_start_date')
                     ->label('Début du mandat'),
-    
+
                 DatePicker::make('leadership_end_date')
                     ->label('Fin du mandat'),
                 ]),
 
-          
-            
+
+
                 Section::make('Identité')
                 ->columns()
 
@@ -63,43 +62,43 @@ class PresidentResource extends Resource
                     Forms\Components\TextInput::make('firstName')
                         ->label("Prénoms")
                         ->maxLength(255),
-                    
+
                     Forms\Components\TextInput::make('lastName')
                         ->label("Nom")
                         ->maxLength(255),
-                    
+
                     Forms\Components\TextInput::make('user_type')
                             ->label('Role')
                             ->default('president')
                             ->readOnly(),
-            
+
                     Forms\Components\Select::make('community_id')
                             ->label("Communautée")
                             ->relationship("community",'sigle')
                          ,
-                
+
                     MarkdownEditor::make('pastoral_experience')
                          ->label('Expérience pastorale')
                          ->columnSpanFull()
                          ->placeholder('Entrez votre expérience pastorale ici...'),
                 ]),
-            
 
-             
-              
-                
-             
-             
+
+
+
+
+
+
              Section::make('Contact Electronique')
              ->columns(2)
              ->schema([
-                 
+
              Forms\Components\TextInput::make('email')
                  ->email()
                  ->required()
                  ->maxLength(255),
-                
-                        
+
+
                     Forms\Components\TextInput::make('phone')
                         ->tel()
                         ->maxLength(255),
@@ -107,8 +106,8 @@ class PresidentResource extends Resource
             Section::make('Localisation')
                 ->columns()
                 ->schema([
-              
-                    
+
+
                     Select::make('city_id')
                         ->relationship('city','name')
                         ->searchable()
@@ -117,7 +116,7 @@ class PresidentResource extends Resource
                         ->label('Ville')
 
                         ,
-                    
+
                     Select::make('commune_id')
                         ->options(fn(Get $get)=>Commune::query()
                         ->where("city_id",$get('city_id'))
@@ -127,26 +126,16 @@ class PresidentResource extends Resource
 
                         ->preload()
                         ,
-                    
-                    Select::make('neighborhood_id')
-                        ->options(fn(Get $get)=>Neighborhood::query()
-                            ->where("commune_id",$get('commune_id'))
-                            ->pluck('name','id')
-                        )
-                        ->searchable()
-                        ->preload()
-                        ->label('Quartier')
 
-                        ,
-                      
+
                     Forms\Components\TextInput::make('address')
                     ->maxLength(255),
 
             ]),
-            
+
             Section::make('Medias')
             ->collapsible()
-                
+
             ->schema([
                     SpatieMediaLibraryFileUpload::make('media')
                     ->required()
@@ -159,7 +148,7 @@ class PresidentResource extends Resource
 
                 ]),
 
-           
+
 
             ]);
     }
@@ -171,22 +160,22 @@ class PresidentResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                 ->label('Nom complet')
                 ->searchable(),
-        
+
             Tables\Columns\TextColumn::make('user_type')
                 ->label('Role')
                 ->searchable(),
-            
+
             Tables\Columns\TextColumn::make('community.sigle')
                 ->label("Communautée")
                 ->searchable(),
 
             Tables\Columns\TextColumn::make('email')
                 ->searchable(),
-            
+
                 SpatieMediaLibraryImageColumn::make('media')
                 ->label('Profile')
                 ,
-           
+
             Tables\Columns\TextColumn::make('phone')
                 ->label('Numéro de téléphone')
                 ->searchable(),
