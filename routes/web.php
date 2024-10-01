@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,6 @@ Route::get('/', function () {
 Route::get('/panel', function () {
     return redirect('/admin'); // Remplace '/admin' par l'URL correcte de ton tableau de bord Filament
 })->name('panel');
+
+
+Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');

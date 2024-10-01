@@ -35,7 +35,7 @@
         <div class="flex w-1/2 justify-end content-center">
 
           <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-            href="https://api.whatsapp.com/send?text=Votre%20message">
+            href="https://wa.me/+2250151501682">
             <img class="fill-current h-6" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" src="images/svg/icons8-whatsapp.svg">
           </a>
 
@@ -72,7 +72,7 @@
           </span></span>
         </p>
 
-        <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+        <!-- <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <div class="mb-4">
             <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
               Inscrivez-vous à notre newsletter
@@ -89,7 +89,38 @@
               Inscrivez-vous
             </button>
           </div>
+        </form> -->
+        <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('subscribe') }}">
+            @csrf
+            <div class="mb-4">
+                <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+                    Inscrivez-vous à notre newsletter
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    id="emailaddress" name="email" type="text" placeholder="jeanchristophedibi99@gmail.com" required />
+                @if ($errors->any())
+                    <div class="text-red-500 mt-2">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+                <button
+                    class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    type="submit">
+                    Inscrivez-vous
+                </button>
+            </div>
+
+            @if (session('success'))
+                <div class="text-green-500 mt-2">
+                    {{ session('success') }}
+                </div>
+            @endif
         </form>
+
       </div>
 
       <!--Right Col-->
