@@ -37,7 +37,6 @@ class User extends Authenticatable implements HasMedia
         'city_id',
         'commune_id',
         'church_id',
-        'neighborhood_id',
         'user_type',
         'marital_status',
         'number_of_children'
@@ -92,9 +91,5 @@ class User extends Authenticatable implements HasMedia
      public function city()
     {
         return $this->belongsTo(City::class);
-    }
-    public function neighborhood()
-    {
-        return $this->belongsTo(Neighborhood::class);
     }
 }

@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\StaffResource\Pages;
 use App\Filament\Resources\StaffResource\RelationManagers;
 use App\Models\Commune;
-use App\Models\Neighborhood;
 use App\Models\Staff;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -32,14 +31,14 @@ class StaffResource extends Resource
     {
         return $form
             ->schema([
-                
+
                 Forms\Components\TextInput::make('type')
                     ->label('Role')
                     ->readOnly()
                     ->default("admin")
                     ->maxLength(255)
                     ->columnSpanFull(),
-               
+
                 Section::make("Identités")
                 ->columns(2)
                 ->schema([
@@ -54,7 +53,7 @@ class StaffResource extends Resource
                     Section::make("Localisation")
                     ->columns()
                     ->schema([
-                            
+
                         Forms\Components\Select::make('city_id')
                             ->label('Ville')
                             ->preload()
@@ -62,7 +61,7 @@ class StaffResource extends Resource
                             ->relationship('city','name')
                             ->live()
                             ,
-    
+
                         Forms\Components\Select::make('commune_id')
                             ->label('Commune')
                             ->options(fn (Get $get) =>Commune::query()
@@ -71,20 +70,12 @@ class StaffResource extends Resource
                             ->preload()
                             ->searchable()
                             ->live(),
-                        
-                        Forms\Components\Select::make('neighborhood_id')
-                            ->label('Quartier')
-                            ->options(fn (Get $get) =>Neighborhood::query()
-                                ->where('commune_id', $get('commune_id'))
-                                ->pluck('name','id'))
-                            ->preload()
-                            ->searchable()
-                            ->live(),
-    
+
+
                         Forms\Components\TextInput::make('address')
                             ->maxLength(255),
                         ]),
-                    
+
                 Section::make("Contacts")
                 ->columns()
                 ->schema([
@@ -99,7 +90,7 @@ class StaffResource extends Resource
                         ->maxLength(255),
                     ]),
 
-               
+
             ]);
     }
 
@@ -107,7 +98,7 @@ class StaffResource extends Resource
     {
         return $table
             ->columns([
-               
+
                 Tables\Columns\TextColumn::make('firstName')
                     ->label('Prénoms')
                     ->searchable(),

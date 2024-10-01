@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\ChurchController;
+use App\Http\Controllers\CommuneController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('cities', CityController::class);
+Route::resource('communes', CommuneController::class);
+Route::resource('communities', CommunityController::class);
+Route::resource('churches', ChurchController::class);

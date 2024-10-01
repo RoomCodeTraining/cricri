@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('churches', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pastor_id')->constrained('users')->nullable(); 
+            $table->foreignId('pastor_id')->constrained('users')->nullable();
             $table->string('name');
-            $table->string('sigle');
+            $table->string('sigle')->nullable();
             $table->string('temple')->nullable();
             $table->string('contacts')->nullable();
             $table->string('address')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->string('website')->nullable();
-            
+
             $table->timestamps();
         });
     }
