@@ -31,11 +31,10 @@
         <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
           FECI-MAP
         </a>
-
         <div class="flex w-1/2 justify-end content-center">
 
           <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
-            href="https://api.whatsapp.com/send?text=Votre%20message">
+            href="https://wa.me/+2250151501682">
             <img class="fill-current h-6" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" src="images/svg/icons8-whatsapp.svg">
           </a>
 
@@ -52,8 +51,9 @@
             </a>
 
         </div>
-      </div>
     </div>
+    <p class="text-red-600 font-bold">Bientôt !!!</p>
+</div>
 
     <!--Main-->
     <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
@@ -72,7 +72,7 @@
           </span></span>
         </p>
 
-        <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+        <!-- <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
           <div class="mb-4">
             <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
               Inscrivez-vous à notre newsletter
@@ -89,7 +89,38 @@
               Inscrivez-vous
             </button>
           </div>
+        </form> -->
+        <form class="bg-gray-900 opacity-75 w-full shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4" method="POST" action="{{ route('subscribe') }}">
+            @csrf
+            <div class="mb-4">
+                <label class="block text-blue-300 py-2 font-bold mb-2" for="emailaddress">
+                    Inscrivez-vous à notre newsletter
+                </label>
+                <input
+                    class="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    id="emailaddress" name="email" type="text" placeholder="jeanchristophedibi99@gmail.com" required />
+                @if ($errors->any())
+                    <div class="text-red-500 mt-2">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+                <button
+                    class="bg-gradient-to-r from-purple-800 to-green-500 hover:from-pink-500 hover:to-green-500 text-white font-bold py-2 px-4 rounded focus:ring transform transition hover:scale-105 duration-300 ease-in-out"
+                    type="submit">
+                    Inscrivez-vous
+                </button>
+            </div>
+
+            @if (session('success'))
+                <div class="text-green-500 mt-2">
+                    {{ session('success') }}
+                </div>
+            @endif
         </form>
+
       </div>
 
       <!--Right Col-->
@@ -107,7 +138,8 @@
 
       <div class="mx-auto md:pt-16">
         <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
-          Téléchargez notre application :
+          <!-- Téléchargez notre application : -->
+          Le téléchargement sera bientôt possible sur :
         </p>
         <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
           <img src="images/svg/App Store.svg" class="h-12 pr-12 transform hover:scale-125 duration-300 ease-in-out" />
@@ -119,8 +151,8 @@
       <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
         <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; </a>
         Developée par
-        <a class="text-gray-500 no-underline hover:no-underline" href="#">Jean Christophe
-          Dibi & Othniel Djue | Tous droits reservés</a>
+        <p class="text-gray-500 no-underline hover:no-underline" ><a href="https://wa.me/+2250777105200">Jean Christophe
+          Dibi</a> & <a href="https://wa.me/+2250778206950">Othniel Djue</a> | Tous droits reservés</p>
       </div>
     </div>
   </div>
