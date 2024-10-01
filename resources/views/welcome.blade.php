@@ -31,7 +31,6 @@
         <a class="flex items-center text-white no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
           FECI-MAP
         </a>
-
         <div class="flex w-1/2 justify-end content-center">
 
           <a class="inline-block text-blue-300 no-underline hover:text-pink-500 hover:text-underline text-center h-10 p-2 md:h-auto md:p-4 transform hover:scale-125 duration-300 ease-in-out"
@@ -52,8 +51,9 @@
             </a>
 
         </div>
-      </div>
     </div>
+    <p class="text-red-600 font-bold">Bientôt !!!</p>
+</div>
 
     <!--Main-->
     <div class="container pt-24 md:pt-36 mx-auto flex flex-wrap flex-col md:flex-row items-center">
@@ -138,7 +138,8 @@
 
       <div class="mx-auto md:pt-16">
         <p class="text-blue-400 font-bold pb-8 lg:pb-6 text-center">
-          Téléchargez notre application :
+          <!-- Téléchargez notre application : -->
+          Le téléchargement sera bientôt possible sur :
         </p>
         <div class="flex w-full justify-center md:justify-start pb-24 lg:pb-0 fade-in">
           <img src="images/svg/App Store.svg" class="h-12 pr-12 transform hover:scale-125 duration-300 ease-in-out" />
@@ -150,8 +151,8 @@
       <div class="w-full pt-16 pb-6 text-sm text-center md:text-left fade-in">
         <a class="text-gray-500 no-underline hover:no-underline" href="#">&copy; </a>
         Developée par
-        <a class="text-gray-500 no-underline hover:no-underline" href="#">Jean Christophe
-          Dibi & Othniel Djue | Tous droits reservés</a>
+        <p class="text-gray-500 no-underline hover:no-underline" ><a href="https://wa.me/+2250777105200">Jean Christophe
+          Dibi</a> & <a href="https://wa.me/+2250778206950">Othniel Djue</a> | Tous droits reservés</p>
       </div>
     </div>
   </div>
