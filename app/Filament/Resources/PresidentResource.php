@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PresidentResource\Pages;
 use App\Filament\Resources\PresidentResource\RelationManagers;
-use App\Models\Commune;
+use App\Models\Municipality;
 use App\Models\President;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -117,8 +117,8 @@ class PresidentResource extends Resource
 
                         ,
 
-                    Select::make('commune_id')
-                        ->options(fn(Get $get)=>Commune::query()
+                    Select::make('municipality_id')
+                        ->options(fn(Get $get)=>Municipality::query()
                         ->where("city_id",$get('city_id'))
                         ->pluck('name','id'))
                         ->searchable()

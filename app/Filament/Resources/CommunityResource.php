@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CommunityResource\Pages;
 use App\Filament\Resources\CommunityResource\RelationManagers;
-use App\Models\Commune;
+use App\Models\Municipality;
 use App\Models\Community;
 use Filament\Forms;
 use Filament\Forms\Components\MarkdownEditor;
@@ -78,9 +78,9 @@ class CommunityResource extends Resource
                         ->live()
                     ,
 
-                    Select::make('commune_id')
+                    Select::make('municipality_id')
                         ->label('Commune')
-                        ->options(fn (Get $get) =>Commune::query()
+                        ->options(fn (Get $get) =>Municipality::query()
                             ->where('city_id', $get('city_id'))
                             ->pluck('name','id'))
                         ->preload()
@@ -129,7 +129,7 @@ class CommunityResource extends Resource
                     ->label('Logo'),
                 Tables\Columns\TextColumn::make('city.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('commune.name')
+                Tables\Columns\TextColumn::make('municipality.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StaffResource\Pages;
 use App\Filament\Resources\StaffResource\RelationManagers;
-use App\Models\Commune;
+use App\Models\Municipality;
 use App\Models\Staff;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -62,9 +62,9 @@ class StaffResource extends Resource
                             ->live()
                             ,
 
-                        Forms\Components\Select::make('commune_id')
+                        Forms\Components\Select::make('municipality_id')
                             ->label('Commune')
-                            ->options(fn (Get $get) =>Commune::query()
+                            ->options(fn (Get $get) =>Municipality::query()
                                 ->where('city_id', $get('city_id'))
                                 ->pluck('name','id'))
                             ->preload()
@@ -113,7 +113,7 @@ class StaffResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('city.name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('commune.name')
+                Tables\Columns\TextColumn::make('municipality.name')
                     ->searchable(),
                 // Tables\Columns\TextColumn::make('profile_photo_path')
                 //         ->searchable(),

@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ChurchController;
-use App\Http\Controllers\CommuneController;
+use App\Http\Controllers\MunicipalityController;
+use App\Http\Controllers\Api\AuthApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthApiController::class, 'register']);
+    Route::post('/login', [AuthApiController::class, 'login']);
+
+    Route::get('/email/confirmation/{token}/{email}', [AuthApiController::class, 'confirm'])->name('confirmation');
+
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+
+        Route::get('logout', [AuthApiController::class, 'logout']);
+        Route::get('user', [AuthApiController::class, 'user']);
+        Route::post('refresh', [AuthApiController::class, 'refresh']);
+
+        Route::put('change-password', [AuthApiController::class, 'changePassword']);
+        Route::put('update', [AuthApiController::class, 'updateProfile']);
+    });
+});
+
+
 Route::resource('cities', CityController::class);
-Route::resource('communes', CommuneController::class);
+Route::resource('municipalities', MunicipalityController::class);
 Route::resource('communities', CommunityController::class);
 Route::resource('churches', ChurchController::class);

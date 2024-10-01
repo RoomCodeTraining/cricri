@@ -21,8 +21,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->string('firstName')->nullable();
-            $table->string('lastName')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('type')->default('user');
             $table->string('user_type')->default('fidele');
             $table->string('phone')->nullable();

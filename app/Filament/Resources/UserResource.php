@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
-use App\Models\Commune;
+use App\Models\Municipality;
 use App\Models\Utilisateur;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -84,8 +84,8 @@ class UserResource extends Resource
 
                             ,
 
-                        Select::make('commune_id')
-                            ->options(fn(Get $get)=>Commune::query()
+                        Select::make('municipality_id')
+                            ->options(fn(Get $get)=>Municipality::query()
                             ->where("city_id",$get('city_id'))
                             ->pluck('name','id'))
                             ->searchable()
@@ -129,7 +129,7 @@ class UserResource extends Resource
                     ->label('Role')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('commune.name')
+                Tables\Columns\TextColumn::make('municipality.name')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('email')

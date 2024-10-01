@@ -22,7 +22,7 @@ class Community extends Model implements HasMedia
         'latitude',
         'longitude',
         'city_id',
-        'commune_id',
+        'municipality_id',
         'president_id'
     ];
 
@@ -38,9 +38,9 @@ class Community extends Model implements HasMedia
 
         return $this->belongsTo(City::class);
     }
-     public function commune(): BelongsTo{
+     public function municipality(): BelongsTo{
 
-        return $this->belongsTo(Commune::class);
+        return $this->belongsTo(Municipality::class);
     }
 
 

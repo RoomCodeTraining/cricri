@@ -27,15 +27,15 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
-        'firstName',
-        'lastName',
+        'first_name',
+        'last_name',
         'profile_photo_path',
         'type',
         'phone',
         'password_reset_required',
         'address',
         'city_id',
-        'commune_id',
+        'municipality_id',
         'church_id',
         'user_type',
         'marital_status',
@@ -84,9 +84,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsTo(Church::class, 'church_id', 'id');
     }
-     public function commune()
+     public function municipality()
     {
-        return $this->belongsTo(Commune::class);
+        return $this->belongsTo(Municipality::class);
     }
      public function city()
     {

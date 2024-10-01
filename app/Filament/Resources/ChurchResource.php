@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ChurchResource\Pages;
 use App\Filament\Resources\ChurchResource\RelationManagers;
 use App\Models\Church;
-use App\Models\Commune;
+use App\Models\Municipality;
 use Filament\Forms;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
@@ -109,9 +109,9 @@ class ChurchResource extends Resource
                             ->live()
                         ,
 
-                        Select::make('commune_id')
+                        Select::make('municipality_id')
                             ->label('Commune')
-                            ->options(fn (Get $get) =>Commune::query()
+                            ->options(fn (Get $get) =>Municipality::query()
                                 ->where('city_id', $get('city_id'))
                                 ->pluck('name','id'))
                             ->preload()

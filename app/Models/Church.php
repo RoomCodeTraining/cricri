@@ -29,7 +29,7 @@ class Church extends Model implements HasMedia
          'community_id',
          'sigle',
          'city_id',
-         'commune_id',
+         'municipality_id',
     ];
 
     public function pastor():BelongsTo
@@ -45,8 +45,8 @@ class Church extends Model implements HasMedia
 
         return $this->belongsTo(City::class);
     }
-     public function commune(): BelongsTo{
+     public function municipality(): BelongsTo{
 
-        return $this->belongsTo(Commune::class);
+        return $this->belongsTo(Municipality::class);
     }
 }

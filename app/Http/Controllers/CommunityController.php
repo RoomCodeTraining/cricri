@@ -11,7 +11,7 @@ class CommunityController extends Controller
     {
         $perPage = 10;
 
-        $cities = Community::with(['city', 'commune'])->paginate($perPage);
+        $cities = Community::with(['city', 'municipality'])->paginate($perPage);
 
         return response()->json([
             "status" => "success",

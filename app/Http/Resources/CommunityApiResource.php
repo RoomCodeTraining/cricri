@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\CityApiResource;
-use App\Http\Resources\CommuneApiResource;
+use App\Http\Resources\MunicipalityApiResource;
 
 class CommunityApiResource extends JsonResource
 {
@@ -29,7 +29,7 @@ class CommunityApiResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'city' => new CityApiResource($this->whenLoaded('city')),
-            'commune' => new CommuneApiResource($this->whenLoaded('commune')),
+            'municipality' => new MunicipalityApiResource($this->whenLoaded('municipality')),
         ];
     }
 }

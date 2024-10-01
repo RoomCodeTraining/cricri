@@ -5,21 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Commune extends Model
+class Municipality extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'city_id', 
+        'city_id',
+        'uuid',
+        'slug',
+
     ];
+    static::creating(function ($municipality) {
+            $municipality->uuid = Str::uuid();
+            $municipality->slug = Str::slug($municipality->name);
+    });
 
     public function users()
     {
-        return $this->hasMany(User::class, 'commune_id');
+        return $this->hasMany(User::class, 'municipality_id');
     }
     public function city(){
         return $this->belongsTo(City::class);
     }
-    
+
 }

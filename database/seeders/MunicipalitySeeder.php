@@ -6,14 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CommuneSeeder extends Seeder
+class MunicipalitySeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $communes = [
+        $municipalitys = [
             ['name' => 'Commune d\'Abobo','city_id' => 1],
             ['name' => 'Commune d\'Adjamé','city_id' => 1],
             ['name' => 'Commune de Yopougon','city_id' => 1],
@@ -54,10 +54,10 @@ class CommuneSeeder extends Seeder
             ['name' => 'Commune de Soubré', 'city_id' => 28],
             ['name' => 'Commune de Toumodi', 'city_id' => 29],
         ];
-        foreach ($communes as $commune) {
-            DB::table('communes')->insert([
-                'name' => $commune['name'],
-                'city_id' => $commune['city_id'],
+        foreach ($municipalitys as $municipality) {
+            DB::table('municipalities')->insert([
+                'name' => $municipality['name'],
+                'city_id' => $municipality['city_id'],
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

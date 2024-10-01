@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\CommuneResource\Pages;
-use App\Filament\Resources\CommuneResource\RelationManagers;
-use App\Models\Commune;
+use App\Filament\Resources\MunicipalityResource\Pages;
+use App\Filament\Resources\MunicipalityResource\RelationManagers;
+use App\Models\Municipality;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class CommuneResource extends Resource
+class MunicipalityResource extends Resource
 {
-    protected static ?string $model = Commune::class;
+    protected static ?string $model = Municipality::class;
     protected static ?string $navigationIcon = 'heroicon-o-home';
     protected static ?int $navigationSort = 2;
     protected static ?string $navigationLabel = 'Communes';
@@ -76,10 +76,7 @@ class CommuneResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCommunes::route('/'),
-            // 'create' => Pages\CreateCommune::route('/create'),
-            // 'view' => Pages\ViewCommune::route('/{record}'),
-            // 'edit' => Pages\EditCommune::route('/{record}/edit'),
+            'index' => Pages\ListMunicipalities::route('/'),
         ];
     }
 }
