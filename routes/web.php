@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscriberController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ use App\Http\Controllers\SubscriberController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+Route::post("/connexion", [AuthController::class, 'login'])->name("conn");
 
 // Mise à jour de la route /panel
 Route::get('/panel', function () {

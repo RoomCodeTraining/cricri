@@ -1,0 +1,15 @@
+<x-filament-panels::page>
+    <x-filament::card>
+        Bienvenue {{ Auth::user()->name }}, de chez la compagnie {{Auth::user()->organization->name}}
+        <div class="text-right">
+            <x-filament::button wire:click="exporter">
+                Exporter les etats
+            </x-filament::button>
+        </div>
+    </x-filament::card>
+
+    <x-filament::card>
+        @livewire(StatsOverview::class)
+    </x-filament::card>
+
+</x-filament-panels::page>
