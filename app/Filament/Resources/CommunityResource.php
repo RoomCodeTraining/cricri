@@ -6,7 +6,6 @@ use App\Filament\Resources\CommunityResource\Pages;
 use App\Filament\Resources\CommunityResource\RelationManagers;
 use App\Models\Commune;
 use App\Models\Community;
-use App\Models\Neighborhood;
 use Filament\Forms;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
@@ -48,14 +47,14 @@ class CommunityResource extends Resource
                         ->searchable()
                         ->label('President')
                         ->preload()
-    
+
                        ,
                         TextInput::make('name')
                                 ->required()
                                 ->columnSpanFull()
                                 ->label('Nom de la communauté')
                                 ->maxLength(255),
-                    
+
 
                     ]),
                 Section::make()
@@ -66,7 +65,7 @@ class CommunityResource extends Resource
                                 ->imageEditor()
                                 ->openable()
                                 ->columnSpanFull()
-            
+
                             ]),
                 Section::make("Localisation Géographique")
                 ->columns(3)
@@ -88,29 +87,19 @@ class CommunityResource extends Resource
                         ->searchable()
                         ->live()
                     ,
-                
-                    Select::make('neighborhood_id')
-                        ->label('Quartier')
-                        ->options(fn (Get $get) =>Neighborhood::query()
-                            ->where('commune_id', $get('commune_id'))
-                            ->pluck('name','id'))
-                        ->preload()
-                        ->searchable()
-                        ->live()
-                    ,
 
                     TextInput::make('location')
                         ->label('Adresse')
                         ->maxLength(255),
-                    
+
                     TextInput::make('latitude')
                         ->numeric(),
 
                     TextInput::make('longitude')
                         ->numeric(),
-                    
+
                 ]),
-                
+
                 Section::make("Détails")
                 ->schema([
                     MarkdownEditor::make('description')

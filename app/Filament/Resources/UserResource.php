@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
 use App\Models\Commune;
-use App\Models\Neighborhood;
 use App\Models\Utilisateur;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -38,14 +37,14 @@ class UserResource extends Resource
                         Forms\Components\TextInput::make('firstName')
                             ->label("Prénoms")
                             ->maxLength(255),
-                        
+
                         Forms\Components\TextInput::make('lastName')
                             ->label("Nom")
                             ->maxLength(255),
                     ]),
-                
 
-                 
+
+
                 Forms\Components\TextInput::make('type')
                     ->label('Role')
                     ->default('user')
@@ -55,18 +54,18 @@ class UserResource extends Resource
                     ->label("Eglise")
                     ->relationship("church",'name')
                  ,
-                    
-                 
-                 
+
+
+
                  Section::make('Contacts')
                  ->schema([
-                     
+
                  Forms\Components\TextInput::make('email')
                      ->email()
                      ->required()
                      ->maxLength(255),
-                    
-                            
+
+
                         Forms\Components\TextInput::make('phone')
                             ->tel()
                             ->maxLength(255),
@@ -74,8 +73,8 @@ class UserResource extends Resource
                 Section::make('localisation')
                     ->columns(3)
                     ->schema([
-                  
-                        
+
+
                         Select::make('city_id')
                             ->relationship('city','name')
                             ->searchable()
@@ -84,7 +83,7 @@ class UserResource extends Resource
                             ->label('Ville')
 
                             ,
-                        
+
                         Select::make('commune_id')
                             ->options(fn(Get $get)=>Commune::query()
                             ->where("city_id",$get('city_id'))
@@ -94,26 +93,16 @@ class UserResource extends Resource
 
                             ->preload()
                             ,
-                        
-                        Select::make('neighborhood_id')
-                            ->options(fn(Get $get)=>Neighborhood::query()
-                                ->where("commune_id",$get('commune_id'))
-                                ->pluck('name','id')
-                            )
-                            ->searchable()
-                            ->preload()
-                            ->label('Quartier')
 
-                            ,
-                          
+
                         Forms\Components\TextInput::make('address')
                         ->maxLength(255),
 
                 ]),
-                
+
                 Section::make('Medias')
                 ->collapsible()
-                    
+
                 ->schema([
                         SpatieMediaLibraryFileUpload::make('media')
                         ->required()
@@ -123,7 +112,7 @@ class UserResource extends Resource
                         ->imageEditor()
                         ->openable()
                         ->columnSpanFull()
-    
+
                     ]),
             ]);
     }
@@ -135,21 +124,21 @@ class UserResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nom complet')
                     ->searchable(),
-            
+
                 Tables\Columns\TextColumn::make('type')
                     ->label('Role')
                     ->searchable(),
-                
+
                 Tables\Columns\TextColumn::make('commune.name')
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('email')
                     ->searchable(),
-                
+
                     SpatieMediaLibraryImageColumn::make('media')
                     ->label('Profile')
                     ,
-               
+
                 Tables\Columns\TextColumn::make('phone')
                     ->label('Numéro de téléphone')
                     ->searchable(),

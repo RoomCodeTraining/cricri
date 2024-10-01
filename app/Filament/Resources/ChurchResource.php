@@ -6,7 +6,6 @@ use App\Filament\Resources\ChurchResource\Pages;
 use App\Filament\Resources\ChurchResource\RelationManagers;
 use App\Models\Church;
 use App\Models\Commune;
-use App\Models\Neighborhood;
 use Filament\Forms;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Section;
@@ -44,7 +43,7 @@ class ChurchResource extends Resource
                         ->label("Temple")
                         ->required()
                         ->maxLength(255),
-                    
+
                     TextInput::make('name')
                         ->label("Nom de l'église")
                         ->required()
@@ -53,13 +52,13 @@ class ChurchResource extends Resource
                 Section::make('Identites')
                 ->columns()
                 ->schema([
-                    
+
                     Select::make('pastor_id')
                         ->relationship('pastor','name')
                         ->searchable()
                         ->label('Pasteur Principale')
                         ->preload(),
-                    
+
                     Select::make('community_id')
                         ->relationship('community', 'name')
                         ->searchable()
@@ -85,14 +84,14 @@ class ChurchResource extends Resource
                                 ->imageEditor()
                                 ->openable()
                                 ->columnSpanFull()
-            
+
                             ]),
                  Section::make('Addresses Electronniques')
                     ->columns(3)
                     ->schema([
                             TextInput::make('contacts')
                                 ->maxLength(255),
-                            
+
                             TextInput::make('email')
                                 ->email()
                                 ->maxLength(255),
@@ -109,7 +108,7 @@ class ChurchResource extends Resource
                             ->relationship('city','name')
                             ->live()
                         ,
-    
+
                         Select::make('commune_id')
                             ->label('Commune')
                             ->options(fn (Get $get) =>Commune::query()
@@ -119,34 +118,25 @@ class ChurchResource extends Resource
                             ->searchable()
                             ->live()
                         ,
-                    
-                        Select::make('neighborhood_id')
-                            ->label('Quartier')
-                            ->options(fn (Get $get) =>Neighborhood::query()
-                                ->where('commune_id', $get('commune_id'))
-                                ->pluck('name','id'))
-                            ->preload()
-                            ->searchable()
-                            ->live()
-                        ,
-    
+
+
                         TextInput::make('address')
                             ->label('Adresse')
                             ->maxLength(255),
-                        
+
                         TextInput::make('latitude')
                             ->numeric(),
-    
+
                         TextInput::make('longitude')
                             ->numeric(),
-                        
+
                     ]),
 
                 Section::make("Détails")
                     ->schema([
                         MarkdownEditor::make('description')
                         ->columnSpanFull(),
-                       
+
                     ]),
             ]);
     }
