@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8bdb98fa3ab88355141d52820dd152d4",
+    "content-hash": "d7096ac7075d8be4c102ca8cc059f10b",
     "packages": [
         {
             "name": "anourvalar/eloquent-serialize",
@@ -1251,76 +1251,6 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
-        },
-        {
-            "name": "essa/api-tool-kit",
-            "version": "2.1.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ahmedesa/laravel-api-tool-kit.git",
-                "reference": "4b0c20efa47f7e67a38d4516dfdb819d8420c642"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ahmedesa/laravel-api-tool-kit/zipball/4b0c20efa47f7e67a38d4516dfdb819d8420c642",
-                "reference": "4b0c20efa47f7e67a38d4516dfdb819d8420c642",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/auth": "^8.0|^9.0|^10.0|^11.0",
-                "illuminate/container": "^8.0|^9.0|^10.0|^11.0",
-                "illuminate/database": "^8.0|^9.0|^10.0|^11.0",
-                "illuminate/http": "^8.0|^9.0|^10.0|^11.0",
-                "illuminate/support": "^8.0|^9.0|^10.0|^11.0",
-                "php": "^8.0|^8.1"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^6.0|^7.0|^8.0|^9.0",
-                "phpunit/phpunit": "^9.6|^11.0",
-                "tightenco/duster": "^1.2||^2.7"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Essa\\APIToolKit\\APIToolKitServiceProvider",
-                        "Essa\\APIToolKit\\MacroServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Essa\\APIToolKit\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Ahmed Esa",
-                    "email": "ahmedesa6120@gmail.com"
-                }
-            ],
-            "description": "set of tools to build an api with laravel",
-            "homepage": "https://github.com/ahmedesa/laravel-api-tool-kit",
-            "keywords": [
-                "api",
-                "api-generator",
-                "dynamic-pagination",
-                "filters",
-                "laravel",
-                "tools"
-            ],
-            "support": {
-                "issues": "https://github.com/ahmedesa/laravel-api-tool-kit/issues",
-                "source": "https://github.com/ahmedesa/laravel-api-tool-kit/tree/2.1.6"
-            },
-            "time": "2024-06-24T19:49:24+00:00"
         },
         {
             "name": "filament/actions",
@@ -8531,16 +8461,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.33.0",
+            "version": "v1.34.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "d54af9d5745e3680d8a6463ffd9f314aa53eb2d1"
+                "reference": "511e9c95b0f3ee778dc9e11e242bcd2af8e002cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/d54af9d5745e3680d8a6463ffd9f314aa53eb2d1",
-                "reference": "d54af9d5745e3680d8a6463ffd9f314aa53eb2d1",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/511e9c95b0f3ee778dc9e11e242bcd2af8e002cd",
+                "reference": "511e9c95b0f3ee778dc9e11e242bcd2af8e002cd",
                 "shasum": ""
             },
             "require": {
@@ -8590,7 +8520,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2024-09-22T19:04:21+00:00"
+            "time": "2024-09-27T14:58:09+00:00"
         },
         {
             "name": "mockery/mockery",

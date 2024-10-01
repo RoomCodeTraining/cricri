@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Resources\CommuneApiResource;
-use App\Models\Commune;
+use App\Models\Church;
+use App\Http\Resources\ChurchApiResource;
 
-class CommuneController extends Controller
+class ChurchController extends Controller
 {
     public function index()
     {
         $perPage = 10;
 
-        $cities = Commune::paginate($perPage);
+        $cities = Church::paginate($perPage);
 
         return response()->json([
             "status" => "success",
             "message" => "OK",
             "data" => [
                 "current_page" => $cities->currentPage(),
-                "data" => CommuneApiResource::collection($cities),
+                "data" => ChurchApiResource::collection($cities),
                 "first_page_url" => $cities->url(1),
                 "from" => $cities->firstItem(),
                 "last_page" => $cities->lastPage(),
