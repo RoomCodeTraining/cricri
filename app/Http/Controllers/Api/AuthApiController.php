@@ -99,28 +99,33 @@ class AuthApiController extends Controller
     }
 
     public function changePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'new_password' => 'required|min:8',
-        ]);
+{
+    // Authentifier l'utilisateur
+    $user = auth()->user();
 
-        $user = auth()->user();
+    // Validation des champs de la requête
+    $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+    ]);
 
-        if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json(['message' => 'Current password is incorrect'], 400);
-        }
-
-        $user->update(['password' => Hash::make($request->new_password)]);
-
-        return response()->json(['message' => 'Password changed successfully']);
+    // Vérification du mot de passe actuel
+    if (!Hash::check($request->current_password, $user->password)) {
+        return response()->json(['message' => 'Current password is incorrect'], 400);
     }
+
+    // Mise à jour du mot de passe
+    $user->update(['password' => Hash::make($request->new_password)]);
+
+    return response()->json(["status" => "ok", "message" => "Password changed successfully"], 200);
+}
+
 
     public function updateProfile(UpdateCustomerRequest $request)
     {
         $requestData = $request->validated();
         $user = auth()->user();
-        $customer = Customer::find($user->id);
+        $customer = User::find($user->id);
 
         // Update the customer profile
         $response = app(UpdateCustomerAction::class)->execute($requestData, $customer);

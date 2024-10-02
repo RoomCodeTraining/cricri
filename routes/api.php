@@ -37,7 +37,7 @@ Route::prefix('auth')->group(function () {
         Route::post('refresh', [AuthApiController::class, 'refresh']);
 
         Route::put('update-password', [AuthApiController::class, 'changePassword']);
-        Route::put('update', [AuthApiController::class, 'updateProfile']);
+        Route::put('update-profile', [AuthApiController::class, 'updateProfile']);
     });
 });
 
