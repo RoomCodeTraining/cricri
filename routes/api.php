@@ -33,10 +33,10 @@ Route::prefix('auth')->group(function () {
     Route::group(['middleware' => 'auth:sanctum'], function () {
 
         Route::get('logout', [AuthApiController::class, 'logout']);
-        Route::get('user', [AuthApiController::class, 'user']);
+        // Route::get('user', [AuthApiController::class, 'user']);
         Route::post('refresh', [AuthApiController::class, 'refresh']);
 
-        Route::put('change-password', [AuthApiController::class, 'changePassword']);
+        Route::put('update-password', [AuthApiController::class, 'changePassword']);
         Route::put('update', [AuthApiController::class, 'updateProfile']);
     });
 });

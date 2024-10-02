@@ -6,15 +6,13 @@ use App\Actions\CreateUserAction;
 use App\Actions\UpdateCustomerAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
-// use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerApiResource;
-use App\Http\Resources\Shopper\ShopperResource;
+use App\Http\Resources\UserApiResource;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Resources\UserApiResource;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthApiController extends Controller
@@ -27,53 +25,41 @@ class AuthApiController extends Controller
             $response = app(CreateUserAction::class)->execute($requestData);
             if (isset($response['status']) && $response['status'] === 'success') {
                 $user = $response['user']->load('municipality');
-                return response()->json(['message' => 'User created successfully',"status"=>"ok", 'user' => new UserApiResource($user)], 201);
-            }else{
+                return response()->json(['message' => 'User created successfully', "status" => "ok", 'user' => new UserApiResource($user)], 201);
+            } else {
                 return response()->json(['message' => 'User not created'], 500);
             }
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
-
     }
-
 
     public function login(Request $request)
     {
         $request->validate([
-          'email' => 'required|string|email',
-          'password' => 'required|string',
-          'remember_me' => 'boolean'
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+            'remember_me' => 'boolean'
         ]);
 
-        $credentials = request(['email','password']);
+        $credentials = request(['email', 'password']);
 
-        if(!Auth::attempt($credentials))
-        {
+        if (!Auth::attempt($credentials)) {
             return response()->json([
                 'message' => 'credential-error'
-            ],401);
+            ], 401);
         }
 
-        $user = $request->user();
+        $user = $request->user()->load('municipality'); // Chargez la relation 'municipality'
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->plainTextToken;
 
         return response()->json([
             'token' => $token,
             'status' => "success",
-            'message' => "Success, you're logged with success.",
-            'user' => new CustomerApiResource($user)
+            'message' => "Success, you're logged in.",
+            'user' => new UserApiResource($user)
         ]);
-    }
-    public function user(Request $request)
-    {
-        $user = $request->user();
-        if ($user->role == "shopper") {
-            return response()->json(new ShopperResource( $request->user()));
-        }else{
-            return response()->json(new CustomerApiResource( $request->user()));
-        }
     }
 
     public function logout(Request $request)
@@ -83,50 +69,32 @@ class AuthApiController extends Controller
         return response()->json([
             'message' => 'Successfully logged out'
         ]);
-
     }
 
     public function refresh(Request $request)
     {
         $user = $request->user();
-        if ($user->role == "shopper") {
-            return response()->json([
-                'user' =>new ShopperResource($request->user()),
-                'authorization' => [
-                    'token' => $request->user()->createToken('Personal Access Token')->plainTextToken,
-                    'type' => 'bearer',
-                ],
-            ]);
-        }else{
-            return response()->json([
-                'user' =>new CustomerApiResource( $request->user()),
-                'authorization' => [
-                    'token' => $request->user()->createToken('Personal Access Token')->plainTextToken,
-                    'type' => 'bearer',
-                ],
-            ]);
-        }
+        $resource = ($user->role == "shopper") ? new ShopperResource($user) : new CustomerApiResource($user);
 
+        return response()->json([
+            'user' => $resource,
+            'authorization' => [
+                'token' => $user->createToken('Personal Access Token')->plainTextToken,
+                'type' => 'bearer',
+            ],
+        ]);
     }
 
-    public function confirm($token,$email)
+    public function confirm($token, $email)
     {
-
         $isValidToken = PersonalAccessToken::findToken($token);
         $baseUrl = config('services.loginBaseUrl.url');
 
         if ($isValidToken) {
-
-
-        User::where('email', $email)
-            ->update(['email_verified_at' => now()]);
-
-        return redirect()->away(`$baseUrl/login?status=success&token=`.$token);
-
+            User::where('email', $email)->update(['email_verified_at' => now()]);
+            return redirect()->away("$baseUrl/login?status=success&token=" . $token);
         } else {
-
-            return redirect()->away(`$baseUrl/login?status=error`);
-
+            return redirect()->away("$baseUrl/login?status=error");
         }
     }
 
@@ -140,27 +108,28 @@ class AuthApiController extends Controller
         $user = auth()->user();
 
         if (!Hash::check($request->current_password, $user->password)) {
-            return response()->json(['message' => 'Mot de passe actuel incorrect'], 400);
+            return response()->json(['message' => 'Current password is incorrect'], 400);
         }
-        $use = User::find($user->id);
 
-        $use->update([
-            'password' => Hash::make($request->new_password)
-        ]);
+        $user->update(['password' => Hash::make($request->new_password)]);
 
-        return response()->json(['message' => 'Mot de passe changé avec succès']);
+        return response()->json(['message' => 'Password changed successfully']);
     }
+
     public function updateProfile(UpdateCustomerRequest $request)
     {
         $requestData = $request->validated();
         $user = auth()->user();
-        $cust = Customer::find($user->id);
+        $customer = Customer::find($user->id);
 
-        // $user->update($requestData);
-        $response = app(UpdateCustomerAction::class)->execute($requestData,$cust);
+        // Update the customer profile
+        $response = app(UpdateCustomerAction::class)->execute($requestData, $customer);
 
-        return response()->json(['message' => 'Profil utilisateur mis à jour avec succès', 'data' => $response]);
+        return response()->json(['message' => 'User profile updated successfully', 'data' => $response]);
     }
+    public function showResetForm(){
 
+        return "filament.password.reset";
 
+    }
 }

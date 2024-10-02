@@ -28,3 +28,4 @@ Route::get('/panel', function () {
 
 
 Route::post('/subscribe', [SubscriberController::class, 'subscribe'])->name('subscribe');
+// Route::get('/password/reset', [AuthController::class, 'showResetForm'])->name('filament.password.reset');

@@ -75,7 +75,9 @@ class User extends Authenticatable implements HasMedia
         static::creating(function ($model) {
             $model->uuid = Str::uuid();
             $model->name = $model->first_name . ' ' . $model->last_name;
-            $model->password = bcrypt('jesusfind@2024');
+            if (!isset($model->password)) {
+                $model->password = bcrypt('jesusfind@2024');
+            }
         });
 
         static::updating(function ($model) {
