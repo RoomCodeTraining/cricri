@@ -14,6 +14,17 @@ class UserApiResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            "uuid" => $this->uuid,
+            "email" => $this->email,
+            "first_name" => $this->first_name,
+            "last_name" => $this->last_name,
+            "phone" => $this->phone,
+            "address" => $this->address,
+            "name" => $this->name,
+            "updated_at" => $this->updated_at->toISOString(),
+            "created_at" => $this->created_at->toISOString(),
+            "municipality" => new MunicipalityApiResource($this->whenLoaded('municipality')),
+        ];
     }
 }

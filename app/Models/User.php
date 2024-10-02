@@ -40,8 +40,8 @@ class User extends Authenticatable implements HasMedia
         'municipality_id',
         'church_id',
         'user_type',
-        'marital_status',
-        'number_of_children'
+        'is_single',
+        'date_of_birth',
     ];
 
     /**
@@ -64,22 +64,22 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
-    // public function canAccessPanel(Panel $panel): bool
-    // {
-    //     return str_ends_with($this->email, '@findjesus.com') && $this->hasVerifiedEmail();
-    // }
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->leadership_status;
+    }
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function ($user) {
-            $user->uuid = Str::uuid();
-            $user->name = $user->firstName . ' ' . $user->lastName;
-            $user->password = bcrypt('jesusfind@2024');
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+            $model->name = $model->first_name . ' ' . $model->last_name;
+            $model->password = bcrypt('jesusfind@2024');
         });
 
-        static::updating(function ($user) {
-            $user->name = $user->firstName . ' ' . $user->lastName;
+        static::updating(function ($model) {
+            $model->name = $model->first_name . ' ' . $model->last_name;
         });
     }
 

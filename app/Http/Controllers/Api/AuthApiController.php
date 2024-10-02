@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Actions\CreateCustomerAction;
+use App\Actions\CreateUserAction;
 use App\Actions\UpdateCustomerAction;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateCustomerRequest;
-use App\Http\Requests\UpdateCustomerRequest;
+use App\Http\Requests\UserRequest;
+// use App\Http\Requests\UpdateCustomerRequest;
 use App\Http\Resources\CustomerApiResource;
 use App\Http\Resources\Shopper\ShopperResource;
 use App\Models\Customer;
@@ -14,41 +14,27 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UserApiResource;
 use Laravel\Sanctum\PersonalAccessToken;
 
 class AuthApiController extends Controller
 {
-    public function register(Request $request)
+    public function register(UserRequest $request)
     {
-        // dd($request);
-        $requestData = $request->validated([
-            'email' => 'required|string|email|max:255|unique:users',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string|max:255',
-            'phone' => 'nullable|string|max:15',
-            'address' => 'nullable|string|max:255',
-            // 'password' => 'required|string|min:8|confirmed',
-        ]);
-        dd($request);
-        $response = app(CreateCustomerAction::class)->execute($requestData);
+        $requestData = $request->validated();
 
-        if (isset($response['status']) && $response['status'] === 'success') {
-
-
-            // $tokenResult = $response['user']->createToken('Personal Access Token');
-            // $token = $tokenResult->plainTextToken;
-
-            // Mail::to($response['user']->email)->send(new CreatedCustomerMail($response['user'],$token));
-
-            return response()->json([
-                'message' => 'Utilisateur cree!',
-                // 'accessToken' => $token,
-                'user' => $response['user'],
-
-            ], 201);
-        } else {
-            return response()->json(['error' => 'Impossible de créer l\'utilisateur. Veuillez fournir des détails appropriés.'], 500);
+        try {
+            $response = app(CreateUserAction::class)->execute($requestData);
+            if (isset($response['status']) && $response['status'] === 'success') {
+                $user = $response['user']->load('municipality');
+                return response()->json(['message' => 'User created successfully',"status"=>"ok", 'user' => new UserApiResource($user)], 201);
+            }else{
+                return response()->json(['message' => 'User not created'], 500);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
+
     }
 
 

@@ -19,8 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('password_reset_required')->default(true);
-            $table->rememberToken();
-            $table->timestamps();
+            $table->boolean('is_single')->default(true);
             $table->string('profile_photo_path', 2048)->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -28,6 +27,9 @@ return new class extends Migration
             $table->string('user_type')->default('fidele');
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->rememberToken();
+            $table->timestamps();
 
         });
     }
