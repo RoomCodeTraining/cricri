@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('municipalities', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());
+            $table->string('slug')->nullable();
             $table->string('name');
             $table->foreignId('city_id')->constrained('cities');
             $table->timestamps();

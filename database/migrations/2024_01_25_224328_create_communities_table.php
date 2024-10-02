@@ -13,7 +13,9 @@ return new class extends Migration
     {
         Schema::create('communities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('president_id')->nullable()->constrained('users'); 
+            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());
+            $table->string('slug')->nullable();
+            $table->foreignId('president_id')->nullable()->constrained('users');
             $table->string('name');
             $table->string('sigle');
             $table->text('description')->nullable();
@@ -24,7 +26,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        
+
     }
 
     /**

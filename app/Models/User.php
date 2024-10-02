@@ -12,6 +12,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Filament\Panel;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
+
 
 class User extends Authenticatable implements HasMedia
 {
@@ -71,8 +73,9 @@ class User extends Authenticatable implements HasMedia
         parent::boot();
 
         static::creating(function ($user) {
+            $user->uuid = Str::uuid();
             $user->name = $user->firstName . ' ' . $user->lastName;
-                $user->password = bcrypt('jesusfind@2024');
+            $user->password = bcrypt('jesusfind@2024');
         });
 
         static::updating(function ($user) {

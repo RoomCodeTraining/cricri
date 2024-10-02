@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-
+use Illuminate\Support\Str;
 class Community extends Model implements HasMedia
 {
     use HasFactory;
@@ -16,6 +16,8 @@ class Community extends Model implements HasMedia
     protected $fillable = [
         'name',
         'sigle',
+        'slug',
+        'uuid',
         'description',
         'history',
         'location',
@@ -26,6 +28,15 @@ class Community extends Model implements HasMedia
         'president_id'
     ];
 
+        public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+            $model->slug = Str::slug($model->name);
+        });
+    }
     public function president():BelongsTo
     {
         return $this->belongsTo(President::class);

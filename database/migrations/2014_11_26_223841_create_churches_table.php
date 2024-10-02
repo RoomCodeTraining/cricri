@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('churches', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());
+            $table->string('slug')->nullable();
             $table->foreignId('pastor_id')->constrained('users')->nullable();
             $table->string('name');
             $table->string('sigle')->nullable();

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\City;
 
 class CitiesSeeder extends Seeder
 {
@@ -44,12 +44,9 @@ class CitiesSeeder extends Seeder
             'Soubré',
             'Toumodi',
         ];
+
         foreach ($cities as $city) {
-            DB::table('cities')->insert([
-                'name' => $city,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            City::create(['name' => $city]);
         }
     }
 }

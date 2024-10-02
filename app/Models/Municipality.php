@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Municipality extends Model
 {
@@ -14,19 +15,25 @@ class Municipality extends Model
         'city_id',
         'uuid',
         'slug',
-
     ];
-    static::creating(function ($municipality) {
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($municipality) {
             $municipality->uuid = Str::uuid();
             $municipality->slug = Str::slug($municipality->name);
-    });
+        });
+    }
 
     public function users()
     {
         return $this->hasMany(User::class, 'municipality_id');
     }
-    public function city(){
+
+    public function city()
+    {
         return $this->belongsTo(City::class);
     }
-
 }

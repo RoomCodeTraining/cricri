@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->default(\Illuminate\Support\Str::uuid());
             $table->string('email')->unique();
             $table->timestamps();
         });

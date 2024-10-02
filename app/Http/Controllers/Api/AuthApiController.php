@@ -20,15 +20,16 @@ class AuthApiController extends Controller
 {
     public function register(Request $request)
     {
-        dd($request);
+        // dd($request);
         $requestData = $request->validated([
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'first_name' => 'required|string|max:255',
+            'first_name' => 'required|string',
             'last_name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:15',
             'address' => 'nullable|string|max:255',
+            // 'password' => 'required|string|min:8|confirmed',
         ]);
+        dd($request);
         $response = app(CreateCustomerAction::class)->execute($requestData);
 
         if (isset($response['status']) && $response['status'] === 'success') {

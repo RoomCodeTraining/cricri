@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
 
 class Church extends Model implements HasMedia
 {
@@ -15,6 +16,8 @@ class Church extends Model implements HasMedia
 
     protected $fillable = [
          'name',
+         'uuid',
+         'slug',
          'temple',
          'pastor_id',
          'contacts',
@@ -32,6 +35,15 @@ class Church extends Model implements HasMedia
          'municipality_id',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid();
+            $model->slug = Str::slug($model->name);
+        });
+    }
     public function pastor():BelongsTo
     {
         return $this->belongsTo(Utilisateur::class);
