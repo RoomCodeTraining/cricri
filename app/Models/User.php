@@ -62,10 +62,11 @@ class User extends Authenticatable implements HasMedia
         'password' => 'hashed',
     ];
 
-    // public function canAccessPanel(Panel $panel): bool
-    // {
-    //     return str_ends_with($this->email, '@findjesus.com') && $this->hasVerifiedEmail();
-    // }
+    public function canAccessPanel(Panel $panel): bool
+     {
+        //return str_ends_with($this->email, '@findjesus.com') && $this->hasVerifiedEmail();
+return true;
+     }
     public static function boot()
     {
         parent::boot();
