@@ -66,7 +66,8 @@ class User extends Authenticatable implements HasMedia
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return $this->leadership_status;
+        //return $this->leadership_status;
+return true;
     }
     public static function boot()
     {
