@@ -101,7 +101,7 @@ class AuthApiController extends Controller
     public function changePassword(Request $request)
 {
     // Authentifier l'utilisateur
-    $user = auth()->user();
+    $user = Auth::user();
 
     // Validation des champs de la requête
     $request->validate([
